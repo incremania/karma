@@ -1,0 +1,334 @@
+# API Documentation
+
+This API provides endpoints to manage users, blogs, newsletters, orders, products, and images. 
+Below are the available endpoints and their functionalities.
+
+
+@server = http://127.0.0.1:6080
+
+# @server = https://karma-p9gk.onrender.com
+
+@api = {{server}}/api
+
+
+### Register
+POST {{api}}/register
+Content-Type: application/json
+
+
+{
+    "email":"wearlifestyle@gmail.com",
+    "password": "#Stylelife1"
+}
+
+result:::::
+
+{
+    "user": {
+        "email": "wearlifestyle@gmail.com",
+        "role": "admin",
+        "userId": "65da663c44ce76e2ade02976"
+    }
+}
+
+
+
+### Login
+POST {{api}}/login
+Content-Type: application/json
+
+{
+    "email":"wearlifestyle@gmail.com",
+    "password": "#Stylelife1"
+}
+
+
+result for login::::::
+
+{
+    "user": {
+        "_id": "65da663c44ce76e2ade02976",
+        "email": "wearlifestyle@gmail.com",
+        "role": "admin",
+        "createdAt": "2024-02-24T21:57:16.363Z",
+        "updatedAt": "2024-02-24T21:57:16.363Z",
+        "__v": 0
+    }
+}
+
+
+::::::::blog part
+
+POST {{api}}/blog
+Content-Type: application/json
+
+{
+   "title": "string",
+   "post": "string",
+   "image": {
+    "src": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708807810/blog_images/tmp-5-1708807802958_inr4od.jpg",
+    "publicId": "blog_images/tmp-5-1708807802958_inr4od"
+}
+}
+
+result:::  
+{
+    "blog": {
+        "title": "string",
+        "post": "string",
+        "image": {
+            "src": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708807810/blog_images/tmp-5-1708807802958_inr4od.jpg",
+            "publicId": "blog_images/tmp-5-1708807802958_inr4od"
+        },
+        "_id": "65da672644ce76e2ade02979",
+        "createdAt": "2024-02-24T22:01:10.013Z",
+        "updatedAt": "2024-02-24T22:01:10.013Z",
+        "__v": 0
+    }
+}
+
+
+GET {{api}}/blog/all
+Content-Type: application/json
+
+
+{
+    "nbHits": 2,
+    "blogs": [
+        {
+            "image": {
+                "src": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708807810/blog_images/tmp-5-1708807802958_inr4od.jpg",
+                "publicId": "blog_images/tmp-5-1708807802958_inr4od"
+            },
+            "_id": "65da632b63cd0110206b8fb6",
+            "title": "string",
+            "post": "string",
+            "createdAt": "2024-02-24T21:44:11.925Z",
+            "updatedAt": "2024-02-24T21:44:11.925Z",
+            "__v": 0
+        },
+        {
+            "image": {
+                "src": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708807810/blog_images/tmp-5-1708807802958_inr4od.jpg",
+                "publicId": "blog_images/tmp-5-1708807802958_inr4od"
+            },
+            "_id": "65da672644ce76e2ade02979",
+            "title": "string",
+            "post": "string",
+            "createdAt": "2024-02-24T22:01:10.013Z",
+            "updatedAt": "2024-02-24T22:01:10.013Z",
+            "__v": 0
+        }
+    ]
+}
+
+
+###GET single blog
+GET {{api}}/blog/65da632b63cd0110206b8fb6
+Content-Type: application/json
+
+{
+    "blog": {
+        "image": {
+            "src": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708807810/blog_images/tmp-5-1708807802958_inr4od.jpg",
+            "publicId": "blog_images/tmp-5-1708807802958_inr4od"
+        },
+        "_id": "65da632b63cd0110206b8fb6",
+        "title": "string",
+        "post": "string",
+        "createdAt": "2024-02-24T21:44:11.925Z",
+        "updatedAt": "2024-02-24T21:44:11.925Z",
+        "__v": 0
+    }
+}
+
+
+### update single blog
+PATCH {{api}}/blog/65da632b63cd0110206b8fb6
+Content-Type: application/json
+
+
+ {
+        "image": {
+            "src": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708807810/blog_images/tmp-5-1708807802958_inr4od.jpg",
+            "publicId": "blog_images/tmp-5-1708807802958_inr4od"
+        },
+        
+        "title": "edited string",
+        "post": "edited string"
+    
+    }
+
+### result
+
+{
+    "blog": {
+        "image": {
+            "src": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708807810/blog_images/tmp-5-1708807802958_inr4od.jpg",
+            "publicId": "blog_images/tmp-5-1708807802958_inr4od"
+        },
+        "_id": "65da632b63cd0110206b8fb6",
+        "title": "edited string",
+        "post": "edited string",
+        "createdAt": "2024-02-24T21:44:11.925Z",
+        "updatedAt": "2024-02-24T22:14:56.036Z",
+        "__v": 0
+    }
+}
+
+### delete single blog
+DELETE {{api}}/blog/65da632b63cd0110206b8fb6
+Content-Type: application/json
+
+
+### upload blog image
+POST {{api}}/blog/image
+content-Type: multipart/form-data
+
+
+### result
+
+{
+    "image": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708813413/blog_images/tmp-2-1708813412188_zlmzpx.jpg",
+    "publicId": "blog_images/tmp-2-1708813412188_zlmzpx"
+}
+
+
+
+### update blog image
+PATCH {{api}}/blog/image/blogId
+replace blogId with a valid blog id
+property: image
+
+
+### result
+
+{
+    "message": "blog image updated successfully",
+    "blog": {
+        "image": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708808399/blog_images/tmp-2-1708808392233_fufamd.jpg",
+        "_id": "65da57cc50baea1a3276875b",
+        "title": "string",
+        "post": "string",
+        "createdAt": "2024-02-24T20:55:40.582Z",
+        "updatedAt": "2024-02-24T20:59:54.711Z",
+        "__v": 0
+    }
+}
+
+
+
+
+
+
+note::: in the public id chan
+
+newsletter
+
+### new letter
+POST {{api}}/newsletter
+Content-Type: application/json
+
+
+    {
+        "email": "karama@String.com",
+    }
+
+### Get all newsletter
+GET {{api}}/newsletter/all',
+
+
+### get single newsletter
+GET  {{api}}/newsletter/65da57cc50baea1a3276875b
+
+### delete news letter
+DELETE {{api}}/newsletter/65da57cc50baea1a3276875b
+
+### create Order 
+POST {{api}}/order
+
+
+ SingleOrderItemSchema = {
+    "name": "string",
+    "image": ["string"],
+    "price": 50,
+    "quantity": 3,
+    "product": "65da57cc50baea1a3276875b" 
+}
+
+
+{
+    "shippingFee": 50
+    "subtotal": 5
+    "total": 5
+    "orderItems": [SingleOrderItemSchema],
+    status: {
+        type: String,
+        enum: ['pending', 'failed', 'paid', 'delivered', 'cancelled'],
+        default: 'pending'
+    }
+    
+}
+
+
+### get orders
+GET {{api}}/order
+
+
+### get single order
+GET  {{api}}/order/:orderId
+
+
+### update order
+PATCH {{api}}/order/65da57cc50baea1a3276875b
+
+
+### create product
+POST {{api}}/productId
+
+{
+    name: "string"
+    description: "string,
+    images:  [{ publicId: "String", src: "string" }],
+    price: 60
+    quantity: 3
+    categories: 'corporate wear' // allowed values 'corporate wear', 'text-based tees', 'casual attire', 'innerwear essentials', 'polo shirts'
+
+
+},
+
+### product image
+POST {{api}}/image/upload
+content-Type: multipart/form-data
+property: images
+
+### result
+
+{
+    "image": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1708813413/blog_images/tmp-2-1708813412188_zlmzpx.jpg",
+    "publicId": "blog_images/tmp-2-1708813412188_zlmzpx"
+}
+
+
+### update product image
+PATCH {{api}}/image/upload/:productId
+
+
+
+### delete image
+DELETE {{api}}/image/delete/:productId/:publicId
+
+
+### get all product
+GET {{api}}/all
+
+### get single product
+GET {{api}}/productId
+
+
+### update image 
+PATCH {{api}}/productId
+
+
+### delete product
+DELETE {{api}}/productId
