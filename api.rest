@@ -8,7 +8,7 @@ Below are the available endpoints and their functionalities.
 
 # @server = https://karma-p9gk.onrender.com
 
-@api = {{server}}/api
+@api = {{server}}
 
 
 ### Register
