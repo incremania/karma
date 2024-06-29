@@ -34,7 +34,7 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 });
-app.use(limiter);
+// app.use(limiter);
 app.use(cors());
 
 app.use(cookieParser(process.env.JWT_SECRET))
@@ -42,10 +42,11 @@ app.use(express.json());
 app.use(fileUpload({ useTempFiles: true}))
 // routes
 app.use( userRoute)
-app.use(productRoute)
+app.use('/product', productRoute)
 app.use(blogRoute)
 app.use(newsletterRoute)
 app.use(orderRoute)
+
 app.get('/', (req, res) => {
     res.status(200).json('<h1> store api <a href="/api/v1/sennheiser">products</a></h1>')
 })

@@ -6,7 +6,7 @@ Below are the available endpoints and their functionalities.
 
 @server = http://127.0.0.1:6080
 
-# @server = https://karma-p9gk.onrender.com
+# @server = https://karma-1-7zpe.onrender.com
 
 @api = {{server}}
 
@@ -284,7 +284,7 @@ PATCH {{api}}/order/65da57cc50baea1a3276875b
 
 
 ### create product
-POST {{api}}/productId
+POST {{api}}/product
 
 {
     name: "string"
@@ -298,7 +298,7 @@ POST {{api}}/productId
 },
 
 ### product image
-POST {{api}}/image/upload
+POST {{api}}/product/image/upload
 content-Type: multipart/form-data
 property: images
 
@@ -316,19 +316,19 @@ PATCH {{api}}/image/upload/:productId
 
 
 ### delete image
-DELETE {{api}}/image/delete/:productId/:publicId
+DELETE {{api}}/product/image/delete/:productId/:publicId
 
 
 ### get all product
-GET {{api}}/all
+GET {{api}}/product/all
 
 ### get single product
-GET {{api}}/productId
+GET {{api}}/product/productId
 
 
 ### update image 
-PATCH {{api}}/productId
+PATCH {{api}}/product/productId
 
 
 ### delete product
-DELETE {{api}}/productId
+DELETE {{api}}/product/productId

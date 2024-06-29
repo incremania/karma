@@ -9,13 +9,10 @@ const createJWT = ({ payload }) => {
 
 const isTokenValid = (token) => {
   try {
-    console.log(process.env.JWT_SECRET);
-    console.log(token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return decoded;
   } catch (error) {
     console.log(error.message);
-    // If token verification fails (expired, invalid), throw the error
     throw error;
   }
 };

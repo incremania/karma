@@ -1,5 +1,36 @@
 const Product = require('../models/ProductModel');
 const asyncWrapper = require('../middlewares/asyncWrapper');
+const Order = require('../models/OrderModel')
+
+
+
+const dataTotal = async (req, res) => {
+  try {
+
+    const products = await Product.find({});
+    const totalProduct = products.length;
+
+
+    const orders = await Order.find({});
+    const totalOrder = orders.length;
+
+
+    const recentProducts = await Product.find({})
+      .sort({ createdAt: -1 }) 
+      .limit(5); 
+
+    res.status(200).json({
+      message: "success",
+      totalProduct: totalProduct,
+      totalOrder: totalOrder,
+      recentProductDetails: recentProducts 
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "error", error: error.message });
+  }
+};
+
 
 
 // create product controller;
@@ -27,7 +58,7 @@ const createProduct = asyncWrapper(async(req, res) => {
 // get all product 
 
 const getAllProduct = asyncWrapper(async(req, res) => {
-    const products = await Product.find({});
+    const products = await Product.find({}).sort({ createdAt: -1 }) ;
     if(!products) {
         return res.status(404).json({ message: 'no products avaialable yet'})
     }
@@ -75,5 +106,6 @@ module.exports = {
     getSingleProduct,
     updateProduct,
     deleteProduct,
-    deleteAll
+    deleteAll,
+    dataTotal
 }

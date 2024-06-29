@@ -1,6 +1,6 @@
 const cloudinary = require('cloudinary').v2;
 const Product = require('../models/ProductModel')
-const fs = require('fs');
+const fs = require('fs')
 
 const uploadImages =async (req, res) => {
   
