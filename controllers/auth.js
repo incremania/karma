@@ -21,7 +21,7 @@ const register = async (req, res) => {
     return res.status(200).json({
       token: createToken({user: tokenUser}),
       status: "success",
-      message: "login successful",
+      message: "registration successful",
       user: tokenUser,
     })
   } catch (error) {
@@ -66,7 +66,7 @@ const login = async (req, res) => {
     return res.status(401).json({ error: error.message });
   }
 };
-   
+
 module.exports = {
     register,
     login

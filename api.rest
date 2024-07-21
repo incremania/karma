@@ -182,7 +182,7 @@ Content-Type: application/json
 
 
 ### upload blog image
-POST {{api}}/blog/image
+POST {{api}}/blog/image/upload
 content-Type: multipart/form-data
 
 
@@ -287,15 +287,62 @@ PATCH {{api}}/order/65da57cc50baea1a3276875b
 POST {{api}}/product
 
 {
-    name: "string"
-    description: "string,
-    images:  [{ publicId: "String", src: "string" }],
-    price: 60
-    quantity: 3
-    categories: 'corporate wear' // allowed values 'corporate wear', 'text-based tees', 'casual attire', 'innerwear essentials', 'polo shirts'
+    "product_name": "Men's Formal Shirt",
+    "product_description": "A stylish formal shirt for professional attire.",
+    "product_brand": "Brand Name",
+    "product_availability": "In Stock",
+    "images": [
+        {
+            "publicId": "image1_public_id",
+            "src": "https://example.com/image1.jpg"
+        },
+        {
+            "publicId": "image2_public_id",
+            "src": "https://example.com/image2.jpg"
+        }
+    ],
+    "product_price": 60,
+    "sales_price": 50,
+    "product_size": "Medium",
+    "material": "Cotton",
+    "quantity": 10,
+    "categories": "corporate wear"
+}
 
 
-},
+result
+
+{
+    "status": "success",
+    "message": "product created succesfully",
+    "product": {
+        "product_name": "Men's Formal Shirt",
+        "product_description": "A stylish formal shirt for professional attire.",
+        "product_brand": "Brand Name",
+        "product_availability": "In Stock",
+        "images": [
+            {
+                "publicId": "image1_public_id",
+                "src": "https://example.com/image1.jpg",
+                "_id": "669c868913b18e27477ac6df"
+            },
+            {
+                "publicId": "image2_public_id",
+                "src": "https://example.com/image2.jpg",
+                "_id": "669c868913b18e27477ac6e0"
+            }
+        ],
+        "product_price": 60,
+        "sales_price": 50,
+        "quantity": 10,
+        "categories": "corporate wear",
+        "createdBy": "667f1501de454fbcbd58ec5b",
+        "_id": "669c868913b18e27477ac6de",
+        "createdAt": "2024-07-21T03:54:49.140Z",
+        "updatedAt": "2024-07-21T03:54:49.140Z",
+        "__v": 0
+    }
+}
 
 ### product image
 POST {{api}}/product/image/upload
@@ -309,6 +356,17 @@ property: images
     "publicId": "blog_images/tmp-2-1708813412188_zlmzpx"
 }
 
+### GET total data
+GET {{api}}/product/total-data
+
+### result
+
+{
+    "message": "success",
+    "totalProduct": 0,
+    "totalOrder": 0,
+    "recentProductDetails": []
+}
 
 ### update product image
 PATCH {{api}}/image/upload/:productId

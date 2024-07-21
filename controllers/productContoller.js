@@ -33,7 +33,7 @@ const dataTotal = async (req, res) => {
 
 
 
-// create product controller;
+
 
 const deleteAll = async(req, res) => {
     await Product.deleteMany({})
@@ -41,18 +41,31 @@ const deleteAll = async(req, res) => {
 }
 
 const createProduct = asyncWrapper(async(req, res) => {
-    const {categories, name, price, quantity, images, description} = req.body
+    const {
+      product_name,
+      product_price,
+      quantity,
+      images,
+      sales_price,
+      product_description,
+      product_brand,
+      product_availability,
+      categories,
+    } = req.body;
     const product = await Product.create({
-        name,
-        price,
-        quantity,
-        images,
-        description,
-        categories,
-        createdBy: req.user.userId
-    })
+      product_name,
+      product_price,
+      quantity,
+      images,
+      sales_price,
+      product_description,
+      product_brand,
+      product_availability,
+      categories,
+      createdBy: req.user.userId, // Assuming req.user.userId contains the user's ID
+    });
     
-    res.status(201).json({ product})
+    res.status(201).json({status: "success", message: "product created succesfully", product})
 })
 
 // get all product 

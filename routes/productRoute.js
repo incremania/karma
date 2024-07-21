@@ -13,7 +13,7 @@ const {authenticateUser, authorizePermissions} = require('../middlewares/authent
 
 
     router
-    .post('/', authorizePermissions('admin'), createProduct)
+    .post('/', authenticateUser, authorizePermissions('admin'), createProduct)
     .post('/image/upload', authenticateUser, authorizePermissions('admin'), uploadImages )
     .patch('/image/upload/:productId', authenticateUser, authorizePermissions('admin'), updateProductImage)
     .delete('/image/delete/:productId/:publicId', authenticateUser, authorizePermissions('admin'), deleteProductImage)
