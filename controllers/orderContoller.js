@@ -90,17 +90,19 @@ const createOrder = async (req, res) => {
 
     // Process order items
     for (const item of orderItems) {
+        if(!item.quantity) {
+            return res.status(400).json({ error: "Invalid or missing quantity" });
+        }
       const dbProduct = productMap[item.product.toString()];
       if (!dbProduct) {
         return res
           .status(400)
           .json({ error: `Product not found for ID ${item.product}` });
       }
-      console.log(dbProduct);
+  
 
       const { product_name, images, product_price, _id } = dbProduct;
-      console.log(dbProduct);
-      console.log(product_name, images, product_price, _id);
+    
 
       if (!product_name || !product_price) {
         return res.status(400).json({ error: "Product data is incomplete" });
