@@ -52,6 +52,7 @@ const createProduct = asyncWrapper(async(req, res) => {
       product_availability,
       categories,
     } = req.body;
+    
     const product = await Product.create({
       product_name,
       product_price,

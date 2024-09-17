@@ -1,15 +1,15 @@
 const { Schema, default: mongoose } = require('mongoose');
 
 const SingleOrderItemSchema = new Schema({
-    name: {type: String, required: true},
-    image: {type: [String], required: true},
-    price: {type: Number, required: true},
-    quantity: {type: String, required: true},
-    product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-    }
-})
+  product_name: { type: String, required: true },
+  images: { type: [String], required: true },
+  product_price: { type: Number, required: true },
+  quantity: { type: String, required: true },
+  product: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+  },
+});
 
 const OrderSchema = new Schema({
     shippingFee: {
@@ -27,7 +27,7 @@ const OrderSchema = new Schema({
     orderItems: [SingleOrderItemSchema],
     status: {
         type: String,
-        enum: ['pending', 'failed', 'paid', 'delivered', 'cancelled'],
+        enum: ['pending', 'failed', 'paid', 'delivered', 'canceled'],
         default: 'pending'
     }
     
