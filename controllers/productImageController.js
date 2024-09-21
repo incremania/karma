@@ -79,22 +79,10 @@ const updateProductImage = async (req, res) => {
   }
 };
 
-
 const deleteProductImage = async (req, res) => {
   try {
     // Receive product ID and image public ID from request parameters
     const { productId, publicId } = req.params;
-
-    // Delete the image from Cloudinary using its public ID
-    const cloudinaryResponse = await cloudinary.uploader.destroy(publicId);
-
-    console.log("Cloudinary response:", cloudinaryResponse); // Log the response
-
-    if (cloudinaryResponse.result !== "ok") {
-      return res
-        .status(400)
-        .json({ error: "Failed to delete image from Cloudinary" });
-    }
 
     const product = await Product.findById(productId);
 
@@ -102,26 +90,32 @@ const deleteProductImage = async (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
 
+    // Log current images before filtering
     console.log("Current product images:", product.images);
 
+    // Remove the image from the product's images array
     product.images = product.images.filter(
       (image) => image.publicId !== publicId
     );
 
+    // Log updated images after filtering
     console.log("Updated product images:", product.images);
+
+    // Save the updated product
     await product.save();
 
     res
       .status(200)
       .json({
         status: "success",
-        message: "Product image deleted successfully",
+        message: "Product image deleted from database successfully",
       });
   } catch (error) {
     console.error("Error deleting product image:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 
 
