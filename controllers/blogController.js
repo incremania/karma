@@ -2,11 +2,12 @@ const Blog = require('../models/BlogModel');
 const asyncWrapper = require('../middlewares/asyncWrapper')
 
 const createBlog = asyncWrapper(async(req, res) => {
-    const { title, post, image } = req.body;
+    const { title, post, image, description } = req.body;
     const blog = await Blog.create({
         title,
         post,
-        image
+        image,
+        description
     })
 
     res.status(201).json({status: "success", message: "blog created successfully", blog })

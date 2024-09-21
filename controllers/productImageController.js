@@ -80,28 +80,46 @@ const updateProductImage = async (req, res) => {
 };
 
 
-
 const deleteProductImage = async (req, res) => {
   try {
     // Receive product ID and image public ID from request parameters
     const { productId, publicId } = req.params;
 
     // Delete the image from Cloudinary using its public ID
-     await cloudinary.uploader.destroy(publicId);
- 
+    const cloudinaryResponse = await cloudinary.uploader.destroy(publicId);
+
+    console.log("Cloudinary response:", cloudinaryResponse); // Log the response
+
+    if (cloudinaryResponse.result !== "ok") {
+      return res
+        .status(400)
+        .json({ error: "Failed to delete image from Cloudinary" });
+    }
+
     const product = await Product.findById(productId);
 
     if (!product) {
-      return res.status(404).json({ error: 'Product not found' });
+      return res.status(404).json({ error: "Product not found" });
     }
 
-    product.images = product.images.filter(image => image.publicId !== publicId);
+    console.log("Current product images:", product.images);
+
+    product.images = product.images.filter(
+      (image) => image.publicId !== publicId
+    );
+
+    console.log("Updated product images:", product.images);
     await product.save();
 
-    res.status(200).json({ status: "succes",message: 'Product image deleted successfully' });
+    res
+      .status(200)
+      .json({
+        status: "success",
+        message: "Product image deleted successfully",
+      });
   } catch (error) {
-   
-    res.status(500).json({ error: 'Internal server error' });
+    console.error("Error deleting product image:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -109,7 +127,6 @@ const deleteProductImage = async (req, res) => {
 
 
 
+
 module.exports = { uploadImages, updateProductImage, deleteProductImage}
 
-
-// store-api/tmp-2-1708799163856_zeckpy
